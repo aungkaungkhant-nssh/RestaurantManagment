@@ -4,22 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleUsersTable extends Migration
+class RoleUser extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *s
      * @return void
      */
     public function up()
     {
-        Schema::create('role__users', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete("cascade");
             $table->foreignId('role_id')->constrained()->onDelete("cascade")->default(3);
             $table->timestamps();
         });
     }
+
+ 
 
     /**
      * Reverse the migrations.
@@ -28,6 +30,6 @@ class CreateRoleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role__users');
+        //
     }
 }
