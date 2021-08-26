@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+///home section
+Route::get('/',[HomeController::class,"index"]);
+Route::get("/redirect",[HomeController::class,'redirect']);
 
-Route::get('/', function () {
-    return view('restaurant.home');
-});
 
+///Admin section
+Route::get("/adminpannel",[AdminController::class,"index"])->name("admin.pannel");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
