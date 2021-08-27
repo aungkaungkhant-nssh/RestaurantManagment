@@ -1,1 +1,3 @@
-<h1>index</h1>
+@extends('admin.layout')
+@section('content')
+@endsection

@@ -20,6 +20,8 @@ Route::get("/redirect",[HomeController::class,'redirect']);
 
 ///Admin section
 Route::get("/adminpannel",[AdminController::class,"index"])->name("admin.pannel");
+Route::get("/adminuserlists",[AdminController::class,"userLists"])->name("admin.userlists");
+Route::delete('/adminuserdelete/{id}',[AdminController::class,"userDelete"])->name("admin.userdelete");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
