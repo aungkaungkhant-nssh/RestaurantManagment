@@ -134,7 +134,14 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-            @yield('content')
+          <div class="my-3">
+         
+             <x-alert />
+             
+             @yield('content')
+             {{-- message={{Session::get("success") || Session::get("error")}} --}}
+          </div>
+           
         </div>
         <!-- main-panel ends -->
       </div>

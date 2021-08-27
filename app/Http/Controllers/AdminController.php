@@ -16,6 +16,6 @@ class AdminController extends Controller
     }
     public function userDelete($id){
         User::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with("success","Delete User Success");
     }   
 }
