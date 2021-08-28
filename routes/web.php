@@ -22,8 +22,12 @@ Route::get("/redirect",[HomeController::class,'redirect']);
 Route::get("/adminpannel",[AdminController::class,"index"])->name("admin.pannel");
 Route::get("/adminuserlists",[AdminController::class,"userLists"])->name("admin.userlists");
 Route::delete('/adminuserdelete/{id}',[AdminController::class,"userDelete"])->name("admin.userdelete");
-Route::get("/productsadd",[AdminController::class,"productsAdd"])->name("admin.productsadd");
-Route::post("productsadd",[AdminController::class,'productsStore'])->name("admin.productsadd");
+Route::get("/foodadd",[AdminController::class,"foodAdd"])->name("admin.foodadd");
+Route::post("foodadd",[AdminController::class,'foodStore'])->name("admin.foodadd");
+Route::get("/foodlists",[AdminController::class,"foodLists"])->name("admin.foodlists");
+Route::delete("/fooddelete/{id}",[AdminController::class,'foodDelete'])->name('admin.fooddelete');
+Route::get("/foodedit/{id}",[AdminController::class,'foodEdit'])->name("admin.foodedit");
+Route::post("/foodedit/{id}",[AdminController::class,'foodUpdate'])->name("admin.foodedit");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

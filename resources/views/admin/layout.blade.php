@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
+    <base href="/public">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Admin Pannel</title>
@@ -51,19 +52,19 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="{{route('admin.foodlists')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Products Lists</span>
+              <span class="menu-title">Food Lists</span>
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route("admin.productsadd")}}">
+            <a class="nav-link" href="{{route("admin.foodadd")}}">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
               </span>
-              <span class="menu-title">Add Products</span>
+              <span class="menu-title">Add Food</span>
             </a>
           </li>
           {{-- <li class="nav-item menu-items">
