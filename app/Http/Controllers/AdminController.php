@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChefsRequest;
 use App\Http\Requests\ProductRequest;
+use App\Models\Chef;
 use App\Models\Food;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -72,5 +74,23 @@ class AdminController extends Controller
         $food->description=$request->description;
         $food->save();
         return redirect(route("admin.foodlists"));
+    }
+    public function chefsAdd(){
+        return view("admin.chefs.chefsadd");
+    }
+    public function chefsStore(ChefsRequest $request){
+        if($request->hasFile("image")){
+            $fileNameWithExt=$request->file("image")->getClientOriginalName();
+            $filename=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+            $extension=$request->file("image")->getClientOriginalExtension();
+            $fileNameToStore=$filename."_".time().".".$extension;
+            $request->file('image')->storeAs("public/chefsImage",$fileNameToStore);
+        }
+        Chef::create([
+            "name"=>$request->name,
+            "speciality"=>$request->speciality,
+            "image"=>$fileNameToStore
+        ]);
+        return redirect()->back()->with("success","Add Chef Success");
     }
 }

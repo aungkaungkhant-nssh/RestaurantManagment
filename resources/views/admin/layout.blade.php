@@ -67,6 +67,14 @@
               <span class="menu-title">Add Food</span>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route("admin.chefsadd")}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-chart-bar"></i>
+              </span>
+              <span class="menu-title">Add Chefs</span>
+            </a>
+          </li>
           {{-- <li class="nav-item menu-items">
             <a class="nav-link" href="pages/charts/chartjs.html">
               <span class="menu-icon">
