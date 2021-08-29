@@ -30,6 +30,10 @@ Route::get("/foodedit/{id}",[AdminController::class,'foodEdit'])->name("admin.fo
 Route::post("/foodedit/{id}",[AdminController::class,'foodUpdate'])->name("admin.foodedit");
 Route::get("/chefsadd",[AdminController::class,'chefsAdd'])->name("admin.chefsadd");
 Route::post("/chefsadd",[AdminController::class,'chefsStore'])->name("admin.chefsadd");
+Route::get("/cheflists",[AdminController::class,"chefLists"])->name("admin.cheflists");
+Route::get("/chefedit/{id}",[AdminController::class,"chefEdit"])->name("admin.chefedit");
+Route::delete("/chefdelete/{id}",[AdminController::class,"chefDelete"])->name("admin.chefdelete");
+Route::post("/chefedit/{id}",[AdminController::class,"chefUpdate"])->name("admin.chefedit");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

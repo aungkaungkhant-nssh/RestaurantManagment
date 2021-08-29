@@ -93,4 +93,33 @@ class AdminController extends Controller
         ]);
         return redirect()->back()->with("success","Add Chef Success");
     }
+    public function chefLists(){
+        $chefs=Chef::all();
+        return view("admin.chefs.cheflists",compact("chefs"));
+    }
+    public function chefDelete($id){
+        Chef::find($id)->delete();
+        return redirect()->back()->with("success","Chef Delete Success");
+    }
+    public function chefEdit($id){
+        $chef=Chef::find($id);
+        return view("admin.chefs.chefedit",compact("chef"));
+    }
+    public function chefUpdate(Request $request,$id){
+        $chef=Chef::find($id);
+        if($request->hasFile("image")){
+            $fileNameWithExt=$request->file("image")->getClientOriginalName();
+            $filename=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+            $extension=$request->file("image")->getClientOriginalExtension();
+            $fileNameToStore=$filename."_".time().".".$extension;
+            $path=$request->file('image')->storeAs("public/chefsImage/",$fileNameToStore);
+            //delete orginal file
+            Storage::delete('public/chefsImage/'.$chef->image);
+            $chef->image=$fileNameToStore;
+        }
+        $chef->name=$request->name;
+        $chef->speciality=$request->speciality;
+        $chef->save();
+        return redirect(route("admin.cheflists"));
+    }
 }

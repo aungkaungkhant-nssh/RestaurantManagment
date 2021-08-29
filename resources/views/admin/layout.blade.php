@@ -60,6 +60,14 @@
             </a>
           </li>
           <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route('admin.cheflists')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">Chef Lists</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
             <a class="nav-link" href="{{route("admin.foodadd")}}">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
