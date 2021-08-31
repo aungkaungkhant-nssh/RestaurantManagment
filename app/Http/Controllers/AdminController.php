@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChefsRequest;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ReservationRequest;
 use App\Models\Chef;
 use App\Models\Food;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -121,5 +123,14 @@ class AdminController extends Controller
         $chef->speciality=$request->speciality;
         $chef->save();
         return redirect(route("admin.cheflists"));
+    }
+    public function reservations(Request $request){
+   
+       Reservation::create($request->except("_token"));
+       return redirect()->back();
+    }
+    public function reservationLists(){
+        $reservation=Reservation::paginate(4);
+        return view("admin.reservation.reservationlists",compact("reservation"));
     }
 }

@@ -34,6 +34,8 @@ Route::get("/cheflists",[AdminController::class,"chefLists"])->name("admin.chefl
 Route::get("/chefedit/{id}",[AdminController::class,"chefEdit"])->name("admin.chefedit");
 Route::delete("/chefdelete/{id}",[AdminController::class,"chefDelete"])->name("admin.chefdelete");
 Route::post("/chefedit/{id}",[AdminController::class,"chefUpdate"])->name("admin.chefedit");
+Route::post("/reservations",[AdminController::class,"reservations"])->name("admin.reservations");
+Route::get("reservationlists",[AdminController::class,"reservationLists"])->name("admin.reservationlists");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
