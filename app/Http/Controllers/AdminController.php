@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChefsRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ReservationRequest;
+use App\Models\Cart;
 use App\Models\Chef;
 use App\Models\Food;
 use App\Models\Reservation;
@@ -132,5 +133,12 @@ class AdminController extends Controller
     public function reservationLists(){
         $reservation=Reservation::paginate(4);
         return view("admin.reservation.reservationlists",compact("reservation"));
+    }
+    public function addCarts(Request $request,$id){
+        $user_Id=auth()->user()->id;
+        $food_Id=$id;
+        $quantity=$request->quantity;
+        Cart::create(["user_id"=>$user_Id,"food_id"=>$food_Id,"quantity"=>$quantity]);
+        return redirect()->back();
     }
 }

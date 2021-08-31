@@ -28,7 +28,25 @@ https://templatemo.com/tm-558-klassy-cafe
     <link rel="stylesheet" href="assets/css/owl-carousel.css">
 
     <link rel="stylesheet" href="assets/css/lightbox.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
-    
+    <style>
+      #cart{
+        position: relative;
+      }
+      #cart div{
+        position: absolute;
+        bottom:20px;
+        left: 38px;
+        background-color: red;
+        color: #fff;
+        width: 35px;
+        border-radius: 100%;
+      }
+      #cart div span{
+        display: flex;
+        justify-content: center;
+        align-items: center
+      }
+    </style>
     <body>

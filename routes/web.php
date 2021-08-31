@@ -14,7 +14,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 ///home section
-Route::get('/',[HomeController::class,"index"]);
+Route::get('/',[HomeController::class,"index"])->name("home");
 Route::get("/redirect",[HomeController::class,'redirect']);
 
 
@@ -36,6 +36,7 @@ Route::delete("/chefdelete/{id}",[AdminController::class,"chefDelete"])->name("a
 Route::post("/chefedit/{id}",[AdminController::class,"chefUpdate"])->name("admin.chefedit");
 Route::post("/reservations",[AdminController::class,"reservations"])->name("admin.reservations");
 Route::get("reservationlists",[AdminController::class,"reservationLists"])->name("admin.reservationlists");
+Route::post("/addcarts/{id}",[AdminController::class,'addCarts'])->name("admin.addcarts");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

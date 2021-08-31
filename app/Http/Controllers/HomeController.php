@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Chef;
 use App\Models\Food;
 use App\Models\User;
@@ -19,10 +20,15 @@ class HomeController extends Controller
     public function redirect(){
         $food=Food::all();
         $chefs=Chef::all();
+        $cart=Cart::where("user_id",auth()->user()->id)->get();
+        $count=$cart->pluck("quantity")->reduce(function($carry,$item){
+            return $carry+$item;
+        });
         if(Gate::allows("is-Admin-Or-Manager")){
             return redirect(route('admin.pannel'));
         }else{
-            return view("restaurant.home",compact("food","chefs"));
+
+            return view("restaurant.home",compact("food","chefs","count"));
         }
     }
 }
