@@ -30,7 +30,7 @@
                             <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 
                             @auth
                                 <li class="scroll-to-section" id="cart">
-                                    <a href="#reservation">
+                                    <a href="{{route('home.showcarts')}}">
                                         <i class="fas fa-shopping-cart" style="font-size:20px"></i>
                                         <div><span>{{$count}}</span></div>
                                     </a>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-    </header>
+</header>
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->

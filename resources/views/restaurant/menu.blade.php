@@ -20,7 +20,7 @@
                         <h1 class='title'>{{$f->title}}</h1>
                         <p class='description'>{{$f->description}}</p>
                         <div class="main-text-button">
-                            <form action="{{route('admin.addcarts',$f->id)}}" class="d-flex" method="POST">
+                            <form action="{{route('home.addcarts',$f->id)}}" class="d-flex" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <input class="form-control" type="number" style="width: 100px" name="quantity">

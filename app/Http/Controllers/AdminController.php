@@ -134,11 +134,5 @@ class AdminController extends Controller
         $reservation=Reservation::paginate(4);
         return view("admin.reservation.reservationlists",compact("reservation"));
     }
-    public function addCarts(Request $request,$id){
-        $user_Id=auth()->user()->id;
-        $food_Id=$id;
-        $quantity=$request->quantity;
-        Cart::create(["user_id"=>$user_Id,"food_id"=>$food_Id,"quantity"=>$quantity]);
-        return redirect()->back();
-    }
+    
 }
