@@ -31,6 +31,9 @@
             }, 500);
                 
             });
+            $("#order").click(function(){
+             $("#orderNow").toggle()
+            })
         });
 
     </script>

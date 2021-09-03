@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChefsRequest;
+use App\Http\Requests\OrderRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Cart;
 use App\Models\Chef;
 use App\Models\Food;
+use App\Models\Order;
+use App\Models\Order_Item;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -134,5 +137,22 @@ class AdminController extends Controller
         $reservation=Reservation::paginate(4);
         return view("admin.reservation.reservationlists",compact("reservation"));
     }
-    
+    public function orderNow(OrderRequest $request){
+        $order=Order::create($request->except("_token","food_id"));
+        $order_Id=$order->id;
+        foreach($request->foodid as $key=>$id){
+             Order_Item::create([
+            "order_id"=>$order_Id,
+            "food_id"=>$request->foodid[$key],
+            "quantity"=>$request->quantity[$key]
+            ]);
+        }
+        Cart::where("user_id",auth()->user()->id)->delete();
+        return view("restaurant.thank");
+    }
+    public function orderLists(){
+        $orders=Order::paginate(3);
+        $items=Order_Item::Join("food","order__items.food_id","=","food.id")->get();
+        return view("admin.orders.orderlists",compact("items","orders"));
+    }
 }

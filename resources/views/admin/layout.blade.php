@@ -45,6 +45,14 @@
             </a>
           </li>
           <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route('admin.orderlists')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">Order Lists</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('admin.userlists')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Cart;
 use App\Models\Chef;
 use App\Models\Food;
@@ -63,4 +64,5 @@ class HomeController extends Controller
         $cart->decrement('quantity',1);
         return redirect()->back();
     }
+   
 }

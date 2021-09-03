@@ -39,13 +39,47 @@
                                 <i class="fas fa-chevron-down" style="cursor: pointer"></i>
                             </a>
                         </div>
-                       
                     </td>
                     <td><a href="{{route('home.removecarts',$cart->id)}}" class="btn btn-danger">Remove Cart</a></td>
                 </tr>
             @endforeach
-            
         </tbody>
     </table>
+    <button class="btn btn-success" id="order">Order</button>
+    <div style="width: 350px;margin:30px auto;display:none;" id="orderNow">
+    <form action="{{route('home.ordernow')}}" method="POST">
+         @csrf
+            <div class="form-group">
+                @foreach ($carts as $cart)
+                    <input type="hidden" value="{{$cart->food_id}}" name="foodid[]">
+                    <input type="hidden" value="{{$cart->quantity}}" name="quantity[]">
+                @endforeach
+                  <input type="text" name="name" class="form-control" placeholder="Name">
+                  @error('name')
+                    <p class="text-danger">{{ $message }}</p>
+                 @enderror
+            </div>
+            <div class="form-group">
+                <input type="text" name="email" class="form-control" placeholder="Email">
+                @error('email')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone" class="form-control" placeholder="Phone">
+                @error('phone')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+          <div class="form-group">
+                <textarea name="address" placeholder="Address" class="form-control"></textarea>  
+                @error('address')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+          </div>
+          <input type="submit" value="Order Now" class="btn btn-success">
+       </form>
+    </div>
+     
 </div>
 @include('restaurant.scriptrestaurant')  

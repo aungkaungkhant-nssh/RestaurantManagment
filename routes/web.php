@@ -16,7 +16,7 @@ use App\Http\Controllers\HomeController;
 ///home section
 Route::get('/',[HomeController::class,"redirect"])->name("home");
 Route::post("/addcarts/{id}",[HomeController::class,'addCarts'])->name("home.addcarts");
-Route::get("/showcarts",[HomeController::class,"showCarts"])->name('home.showcarts');
+Route::get("/showcarts",[HomeController::class,"showCarts"])->middleware("userAndAuthCheck")->name('home.showcarts');
 Route::get("/removecarts/{id}",[HomeController::class,'removeCarts'])->name('home.removecarts');
 Route::get("increasecarts/{id}",[HomeController::class,'increaseCarts'])->name("home.increasecarts");
 Route::get("decreasecarts/{id}",[HomeController::class,'decreaseCarts'])->name("home.decreasecarts");
@@ -39,7 +39,8 @@ Route::delete("/chefdelete/{id}",[AdminController::class,"chefDelete"])->name("a
 Route::post("/chefedit/{id}",[AdminController::class,"chefUpdate"])->name("admin.chefedit");
 Route::post("/reservations",[AdminController::class,"reservations"])->name("admin.reservations");
 Route::get("reservationlists",[AdminController::class,"reservationLists"])->name("admin.reservationlists");
-
+Route::post("ordernow",[AdminController::class,'orderNow'])->name("home.ordernow");
+Route::get("orderlists",[AdminController::class,'orderLists'])->name("admin.orderlists");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
