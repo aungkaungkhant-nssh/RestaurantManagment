@@ -13,6 +13,8 @@ use App\Models\Order;
 use App\Models\Order_Item;
 use App\Models\Reservation;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -129,7 +131,6 @@ class AdminController extends Controller
         return redirect(route("admin.cheflists"));
     }
     public function reservations(Request $request){
-   
        Reservation::create($request->except("_token"));
        return redirect()->back();
     }
@@ -138,13 +139,20 @@ class AdminController extends Controller
         return view("admin.reservation.reservationlists",compact("reservation"));
     }
     public function orderNow(OrderRequest $request){
-        $order=Order::create($request->except("_token","food_id"));
+        $order=Order::create([
+            "name"=>$request->name,
+            "email"=>$request->email,
+            "phone"=>$request->phone,
+            "address"=>$request->address,
+            "date"=>Carbon::now()->format('d-m-Y')
+        ]);
         $order_Id=$order->id;
         foreach($request->foodid as $key=>$id){
              Order_Item::create([
             "order_id"=>$order_Id,
             "food_id"=>$request->foodid[$key],
-            "quantity"=>$request->quantity[$key]
+            "quantity"=>$request->quantity[$key],
+            "date"=>Carbon::now()->format('d-m-Y')
             ]);
         }
         Cart::where("user_id",auth()->user()->id)->delete();
@@ -154,5 +162,25 @@ class AdminController extends Controller
         $orders=Order::paginate(3);
         $items=Order_Item::Join("food","order__items.food_id","=","food.id")->get();
         return view("admin.orders.orderlists",compact("items","orders"));
+    }
+    public function adminDashboard(){
+        $dailyOrderTotal=Order::where("date",Carbon::now()->format('d-m-Y'))->count();
+        $dailyReservationTotal=Reservation::where("date",Carbon::now()->format("Y-m-d"))->count();
+        $userTotal=User::count();
+        $foodTotal=Food::count();
+        $chefTotal=Chef::count();
+        $orderItems=Order_Item::where("date",Carbon::now()->format('d-m-Y'));
+        $dailySaleFoodQuantity=$orderItems->count();
+        $items=$orderItems->join("food","order__items.food_id","=","food.id")->get();
+        $dailyIncome=0;
+        foreach($items as $item){
+            $dailyIncome+=$item->price*$item->quantity;
+        }
+        $all_items=Order_Item::Join("food","order__items.food_id","=","food.id")->get();
+        $salePrice=0;
+        foreach($all_items as $item){
+            $salePrice+=$item->price*$item->quantity;
+        }
+        return view("admin.dashboard.dashboard",compact("dailyOrderTotal","dailyReservationTotal","userTotal","foodTotal","chefTotal","dailySaleFoodQuantity","dailyIncome","salePrice"));
     }
 }

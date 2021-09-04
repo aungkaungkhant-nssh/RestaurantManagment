@@ -18,6 +18,7 @@ class CreateOrderItemsTable extends Migration
             $table->integer("order_id");
             $table->integer("food_id");
             $table->integer("quantity");
+            $table->string("date");
             $table->timestamps();
         });
     }

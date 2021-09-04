@@ -21,6 +21,7 @@ Route::get("/removecarts/{id}",[HomeController::class,'removeCarts'])->name('hom
 Route::get("increasecarts/{id}",[HomeController::class,'increaseCarts'])->name("home.increasecarts");
 Route::get("decreasecarts/{id}",[HomeController::class,'decreaseCarts'])->name("home.decreasecarts");
 
+
 ///Admin section
 Route::get("/adminpannel",[AdminController::class,"index"])->name("admin.pannel");
 Route::get("/adminuserlists",[AdminController::class,"userLists"])->name("admin.userlists");
@@ -41,6 +42,7 @@ Route::post("/reservations",[AdminController::class,"reservations"])->name("admi
 Route::get("reservationlists",[AdminController::class,"reservationLists"])->name("admin.reservationlists");
 Route::post("ordernow",[AdminController::class,'orderNow'])->name("home.ordernow");
 Route::get("orderlists",[AdminController::class,'orderLists'])->name("admin.orderlists");
+Route::get("/admindashboard",[AdminController::class,'adminDashboard'])->name("admin.dashboard");
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
