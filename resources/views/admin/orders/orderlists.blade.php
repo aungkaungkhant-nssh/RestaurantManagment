@@ -28,6 +28,13 @@
         </div>
          <div>
              <h3>Total Amount: <span style="font-style: italic;" class="ml-2">${{$total}}</span></h3>
+             <p class="mt-3">
+                 @if ($order->date===$today)
+                     <i>Order Date: Today</i>
+                    @else
+                    <i>Order Date: {{$order->date}}</i>
+                 @endif
+             </p>
          </div>
     </div>
 @endforeach

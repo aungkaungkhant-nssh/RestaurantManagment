@@ -159,18 +159,22 @@ class AdminController extends Controller
         return view("restaurant.thank");
     }
     public function orderLists(){
+        $today=Carbon::now()->format("d-m-Y");
         $orders=Order::paginate(3);
         $items=Order_Item::Join("food","order__items.food_id","=","food.id")->get();
-        return view("admin.orders.orderlists",compact("items","orders"));
+        return view("admin.orders.orderlists",compact("items","orders","today"));
     }
     public function adminDashboard(){
-        $dailyOrderTotal=Order::where("date",Carbon::now()->format('d-m-Y'))->count();
-        $dailyReservationTotal=Reservation::where("date",Carbon::now()->format("Y-m-d"))->count();
+        $today=Carbon::now()->format("d-m-Y");
+        $dailyOrderTotal=Order::where("date",$today)->count();
+        $dailyReservationTotal=Reservation::where("date",$today)->count();
         $userTotal=User::count();
         $foodTotal=Food::count();
         $chefTotal=Chef::count();
-        $orderItems=Order_Item::where("date",Carbon::now()->format('d-m-Y'));
-        $dailySaleFoodQuantity=$orderItems->count();
+        $orderItems=Order_Item::where("date",$today);
+        $dailySaleFoodQuantity=$orderItems->pluck("quantity")->reduce(function($item,$sale){
+            return $item+$sale;
+        });
         $items=$orderItems->join("food","order__items.food_id","=","food.id")->get();
         $dailyIncome=0;
         foreach($items as $item){
